@@ -1,0 +1,15 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .dark-gbl-border {
+    @apply border-[#4e4e4e];
+  }
+}
+
+@layer base{
+  body {
+      @apply bg-[#1c4b59]
+  }
+}
