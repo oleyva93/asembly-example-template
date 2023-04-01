@@ -14,7 +14,12 @@ function Login() {
     handleSubmit,
     setError,
     formState: { errors },
-  } = useForm();
+  } = useForm({
+    defaultValues: {
+      email: "connect.cent+accounting@gmail.com",
+      password: "Devtest_123",
+    },
+  });
 
   const onSubmit = async (data) => {
     try {
