@@ -1,4 +1,4 @@
-import { clientAuth } from "@/shared/config/http";
+import { clientAuth } from "@/config/http";
 import { serialize } from "cookie";
 
 export default async function loginHandler(req, res) {

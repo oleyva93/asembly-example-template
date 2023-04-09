@@ -16,24 +16,22 @@ export const httpFetch = (token, { url, ...others }) =>
 
 export async function middleware(request) {
   const jwt = request.cookies.get(ACCESS_TOKEN_PARAM);
-  const { pathname } = request.nextUrl;
-  if (jwt && pathname === LOGIN_PATH) {
-    return NextResponse.redirect(new URL("/", request.url));
-  }
-  if (!jwt && pathname === LOGIN_PATH) {
-    return NextResponse.next();
-  }
+
   if (!jwt) {
-    return NextResponse.redirect(new URL(LOGIN_PATH, request.url));
+    return NextResponse.redirect(url);
   }
+
+  // Verify valid token
   try {
     const formData = new FormData();
     formData.set("token", jwt.value);
+
     await httpFetch(jwt.value, {
       url: INTROSPECT_PATH,
       method: "POST",
       body: formData,
     });
+
     return NextResponse.next();
   } catch (error) {
     return NextResponse.redirect(new URL(LOGIN_PATH, request.url));
@@ -41,5 +39,5 @@ export async function middleware(request) {
 }
 
 export const config = {
-  matcher: ["/", "/login"],
+  matcher: ["/", "/dashboard", "/log", "/admin", "/static-log"],
 };

@@ -1,6 +1,6 @@
 import FormData from "form-data";
 import { serialize } from "cookie";
-import { httpApi } from "@/shared/config/http";
+import { httpApi } from "@/config/http";
 
 export default async function logoutHandler(req, res) {
   const { accessToken } = req.cookies;

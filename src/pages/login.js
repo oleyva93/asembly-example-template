@@ -1,4 +1,4 @@
-import { useLogin } from "@/shared/hooks/useSession";
+import { useLogin } from "@/hooks/useSession";
 import LoadingButton from "@mui/lab/LoadingButton";
 import { Checkbox, TextField } from "@mui/material";
 import Image from "next/image";
@@ -122,6 +122,21 @@ function Login() {
       </div>
     </div>
   );
+}
+
+export async function getServerSideProps({ req }) {
+  if (req.cookies.accessToken) {
+    return {
+      redirect: {
+        destination: "/dashboard",
+        permanent: false,
+      },
+    };
+  } else {
+    return {
+      props: {},
+    };
+  }
 }
 
 export default Login;

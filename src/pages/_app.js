@@ -1,4 +1,4 @@
-import ThemeContainer from "@/shared/components/theme-container";
+import ThemeContainer from "@/components/theme-container";
 import React from "react";
 import { Hydrate, QueryClient, QueryClientProvider } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";

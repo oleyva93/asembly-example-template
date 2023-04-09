@@ -3,6 +3,7 @@ import HomeIcon from "@mui/icons-material/Home";
 import ManageSearchIcon from "@mui/icons-material/ManageSearch";
 import WebStoriesIcon from "@mui/icons-material/WebStories";
 import { Tooltip, Typography } from "@mui/material";
+import Link from "next/link";
 
 const IconWithToolTip = ({ collapse, children, text }) => (
   <Tooltip title={collapse ? text : ""} placement="right">
@@ -32,9 +33,9 @@ export default function SideBar({ collapse }) {
           data-te-sidenav-menu-ref
         >
           <li className="relative">
-            <a
+            <Link
               className="flex cursor-pointer items-center truncate rounded-[5px] py-[0.45rem] px-6 text-[0.85rem] text-gray-600 outline-none transition duration-300 ease-linear hover:bg-slate-50 hover:text-inherit hover:outline-none focus:bg-slate-50 focus:text-inherit focus:outline-none active:bg-slate-50 active:text-inherit active:outline-none data-[te-sidenav-state-active]:text-inherit data-[te-sidenav-state-focus]:outline-none motion-reduce:transition-none dark:text-gray-300 dark:hover:bg-white/10 dark:focus:bg-white/10 dark:active:bg-white/10"
-              data-te-sidenav-link-ref
+              href="/dashboard"
             >
               <span className="mr-2 ml-[-4px] [&>svg]:h-3.9 [&>svg]:w-3.9 [&>svg]:text-gray-600 dark:[&>svg]:text-gray-300">
                 <IconWithToolTip text="Dashboard" collapse={collapse}>
@@ -42,12 +43,12 @@ export default function SideBar({ collapse }) {
                 </IconWithToolTip>
               </span>
               <Typography variant="body1">Dashboard</Typography>
-            </a>
+            </Link>
           </li>
           <li className="relative">
-            <a
+            <Link
               className="flex cursor-pointer items-center truncate rounded-[5px] py-[0.45rem] px-6 text-[0.85rem] text-gray-600 outline-none transition duration-300 ease-linear hover:bg-slate-50 hover:text-inherit hover:outline-none focus:bg-slate-50 focus:text-inherit focus:outline-none active:bg-slate-50 active:text-inherit active:outline-none data-[te-sidenav-state-active]:text-inherit data-[te-sidenav-state-focus]:outline-none motion-reduce:transition-none dark:text-gray-300 dark:hover:bg-white/10 dark:focus:bg-white/10 dark:active:bg-white/10"
-              data-te-sidenav-link-ref
+              href="/log"
             >
               <span className="mr-4 [&>svg]:h-3.9 [&>svg]:w-3.9 [&>svg]:text-gray-600 dark:[&>svg]:text-gray-300">
                 <IconWithToolTip text="Log" collapse={collapse}>
@@ -55,12 +56,12 @@ export default function SideBar({ collapse }) {
                 </IconWithToolTip>
               </span>
               <Typography variant="body1">Log</Typography>
-            </a>
+            </Link>
           </li>
           <li className="relative">
-            <a
+            <Link
               className="flex cursor-pointer items-center truncate rounded-[5px] py-[0.45rem] px-6 text-[0.85rem] text-gray-600 outline-none transition duration-300 ease-linear hover:bg-slate-50 hover:text-inherit hover:outline-none focus:bg-slate-50 focus:text-inherit focus:outline-none active:bg-slate-50 active:text-inherit active:outline-none data-[te-sidenav-state-active]:text-inherit data-[te-sidenav-state-focus]:outline-none motion-reduce:transition-none dark:text-gray-300 dark:hover:bg-white/10 dark:focus:bg-white/10 dark:active:bg-white/10"
-              data-te-sidenav-link-ref
+              href="/static-log"
             >
               <span className="mr-4 [&>svg]:h-3.9 [&>svg]:w-3.9 [&>svg]:text-gray-600 dark:[&>svg]:text-gray-300">
                 <IconWithToolTip text="Static Log" collapse={collapse}>
@@ -68,13 +69,13 @@ export default function SideBar({ collapse }) {
                 </IconWithToolTip>
               </span>
               <Typography variant="body1">Static Log</Typography>
-            </a>
+            </Link>
           </li>
 
           <li className="relative">
-            <a
+            <Link
               className="flex cursor-pointer items-center truncate rounded-[5px] py-[0.45rem] px-6 text-[0.85rem] text-gray-600 outline-none transition duration-300 ease-linear hover:bg-slate-50 hover:text-inherit hover:outline-none focus:bg-slate-50 focus:text-inherit focus:outline-none active:bg-slate-50 active:text-inherit active:outline-none data-[te-sidenav-state-active]:text-inherit data-[te-sidenav-state-focus]:outline-none motion-reduce:transition-none dark:text-gray-300 dark:hover:bg-white/10 dark:focus:bg-white/10 dark:active:bg-white/10"
-              data-te-sidenav-link-ref
+              href="/admin"
             >
               <span className="mr-4 [&>svg]:h-3.9 [&>svg]:w-3.9 [&>svg]:text-gray-600 dark:[&>svg]:text-gray-300">
                 <IconWithToolTip text="Admin" collapse={collapse}>
@@ -82,7 +83,7 @@ export default function SideBar({ collapse }) {
                 </IconWithToolTip>
               </span>
               <Typography variant="body1">Admin</Typography>
-            </a>
+            </Link>
           </li>
         </ul>
       </nav>
