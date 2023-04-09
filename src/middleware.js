@@ -18,20 +18,18 @@ export async function middleware(request) {
   const jwt = request.cookies.get(ACCESS_TOKEN_PARAM);
 
   if (!jwt) {
-    return NextResponse.redirect(url);
+    return NextResponse.redirect(new URL(LOGIN_PATH, request.url));
   }
 
   // Verify valid token
   try {
     const formData = new FormData();
     formData.set("token", jwt.value);
-
     await httpFetch(jwt.value, {
       url: INTROSPECT_PATH,
       method: "POST",
       body: formData,
     });
-
     return NextResponse.next();
   } catch (error) {
     return NextResponse.redirect(new URL(LOGIN_PATH, request.url));
