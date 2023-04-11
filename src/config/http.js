@@ -1,13 +1,4 @@
 import Axios from "axios";
-import ClientOAuth2 from "client-oauth2";
-
-export const clientAuth = () =>
-  new ClientOAuth2({
-    clientId: process.env.NEXT_PUBLIC_CLIENT_ID,
-    clientSecret: process.env.NEXT_PUBLIC_CLIENT_SECRET,
-    accessTokenUri: process.env.NEXT_PUBLIC_ACCESS_TOKEN_URI,
-    scopes: ["read"],
-  });
 
 export const httpClient = () =>
   Axios.create({

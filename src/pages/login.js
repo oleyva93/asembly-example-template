@@ -16,8 +16,8 @@ function Login() {
     formState: { errors },
   } = useForm({
     defaultValues: {
-      email: "connect.cent+accounting@gmail.com",
-      password: "Devtest_123",
+      email: "jcv+oscar@fusus.com",
+      password: "12345678",
     },
   });
 
@@ -28,7 +28,7 @@ function Login() {
     } catch (error) {
       setError("email", {
         type: "custom",
-        message: error?.response?.data?.error.body.error_description,
+        message: error?.response?.data?.error,
       });
     }
   };

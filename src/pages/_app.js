@@ -1,7 +1,7 @@
-import ThemeContainer from "@/components/theme-container";
 import React from "react";
 import { Hydrate, QueryClient, QueryClientProvider } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
+import CoreProvider from "@/components/theme";
 import "semantic-ui-css/semantic.min.css";
 import "../styles/globals.css";
 
@@ -13,9 +13,7 @@ export default function MyApp({ Component, pageProps }) {
   return (
     <QueryClientProvider client={queryClient}>
       <Hydrate state={pageProps.dehydratedState}>
-        <ThemeContainer>
-          {getLayout(<Component {...pageProps} />)}
-        </ThemeContainer>
+        <CoreProvider>{getLayout(<Component {...pageProps} />)}</CoreProvider>
       </Hydrate>
       <ReactQueryDevtools />
     </QueryClientProvider>

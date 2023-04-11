@@ -1,13 +1,13 @@
 import { createTheme, ThemeProvider as MuiThemeProvider } from "@mui/material";
-import { ThemeProvider, useTheme } from "next-themes";
+import { useTheme } from "next-themes";
 import {
   createContext,
-  memo,
   useCallback,
   useContext,
   useEffect,
   useMemo,
 } from "react";
+import { lightPalette } from "./const";
 
 const ColorModeContext = createContext({
   toggleColorMode: () => {},
@@ -22,16 +22,6 @@ const Layout = ({ children }) => {
   const context = useSiteTheme();
   return typeof children === "function" ? children(context) : children;
 };
-
-const ThemeContainer = ({ children }) => {
-  return (
-    <ThemeProvider attribute="class" defaultTheme="light">
-      <Provider>{children}</Provider>
-    </ThemeProvider>
-  );
-};
-
-export default memo(ThemeContainer);
 
 const Provider = ({ children }) => {
   const { theme, setTheme } = useTheme();
@@ -64,27 +54,4 @@ const Provider = ({ children }) => {
   );
 };
 
-const lightPalette = {
-  primary: {
-    main: "#67bd4d",
-    contrastText: "#fff",
-  },
-  secondary: {
-    main: "#202639",
-    contrastText: "#fff",
-  },
-  error: {
-    main: "#ff604f",
-    contrastText: "#fff",
-  },
-  gray: {
-    main: "#999999",
-    emphasis: "#575757",
-    title: "#373737",
-    map: "#d1d1d1",
-    contrastText: "black",
-  },
-  border: {
-    input: "#c4c4c4",
-  },
-};
+export default Provider;
