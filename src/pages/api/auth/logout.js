@@ -1,4 +1,4 @@
-import { httpApi } from "@/config/http";
+import { httpApi } from "@/config/http-server";
 import { serialize } from "cookie";
 
 export default async function logoutHandler(req, res) {
@@ -9,9 +9,7 @@ export default async function logoutHandler(req, res) {
   }
 
   try {
-    await httpApi(accessToken).get(
-      `${process.env.NEXT_PUBLIC_API_URL}/auth/logout`
-    );
+    await httpApi(accessToken).get("/auth/logout");
 
     const serialized = serialize("accessToken", null, {
       httpOnly: true,

@@ -41,10 +41,6 @@ const Provider = ({ children }) => {
     [theme]
   );
 
-  useEffect(() => {
-    setTheme(theme);
-  }, [theme]);
-
   return (
     <ColorModeContext.Provider value={{ setSiteTheme, theme }}>
       <MuiThemeProvider theme={customTheme}>

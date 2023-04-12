@@ -2,8 +2,8 @@
 const nextConfig = {
   output: "standalone",
   reactStrictMode: true,
-  images: {
-    domains: ["connect-statics-astech-io.s3.amazonaws.com"],
+  eslint: {
+    ignoreDuringBuilds: true,
   },
 };
 

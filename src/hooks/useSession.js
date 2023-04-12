@@ -1,16 +1,15 @@
+import { httpClient } from "@/config/http-client";
 import { SESSION_TYPES } from "@/constants";
 import axios from "axios";
 import { useMutation, useQuery } from "react-query";
 
 // fetchers
 
-const fetchLogin = async (credentials) => {
-  const response = await axios.post("/api/auth/login", credentials);
-  return response;
-};
+const fetchLogin = async (credentials) =>
+  await axios.post("/api/auth/login", credentials);
 
 const fetchProfile = async () =>
-  axios.get("/api/user/me").then((res) => res.data);
+  httpClient.get("/users/me").then((res) => res.data);
 
 const fetchLogout = async () => axios.get("/api/auth/logout");
 
