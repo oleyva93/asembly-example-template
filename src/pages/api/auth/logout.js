@@ -1,4 +1,4 @@
-import { httpApi } from "@/config/http-server";
+import { httpApi } from "@/config/http";
 import { serialize } from "cookie";
 
 export default async function logoutHandler(req, res) {

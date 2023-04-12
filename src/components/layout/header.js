@@ -11,10 +11,11 @@ import { useState } from "react";
 import { useQueryClient } from "react-query";
 import { useLogout, useSession } from "../../hooks/useSession";
 import StyledMenu from "../common/styled-menu";
+import useEvent from "@/hooks/useEvent";
 
 export default function HeaderPage({ onCollapse }) {
   const [anchorEl, setAnchorEl] = useState(null);
-  const open = Boolean(anchorEl);
+
   const router = useRouter();
   const qC = useQueryClient();
 
@@ -27,12 +28,9 @@ export default function HeaderPage({ onCollapse }) {
     },
   });
 
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
+  const handleToggleMenu = useEvent((event) => {
+    setAnchorEl(event?.currentTarget || null);
+  });
 
   return (
     <nav
@@ -53,12 +51,10 @@ export default function HeaderPage({ onCollapse }) {
         <Grid item xs={6} display="flex" justifyContent="flex-end">
           <Tooltip title={profile?.email} placement="left">
             <IconButton
-              onClick={handleClick}
+              onClick={handleToggleMenu}
               size="small"
               sx={{ ml: 2 }}
-              aria-controls={open ? "account-menu" : undefined}
               aria-haspopup="true"
-              aria-expanded={open ? "true" : undefined}
             >
               <Tooltip title={profile?.user?.email} placement="left">
                 <Avatar sx={{ width: 32, height: 32 }}>
@@ -70,31 +66,31 @@ export default function HeaderPage({ onCollapse }) {
           <StyledMenu
             id="account-menu"
             anchorEl={anchorEl}
-            open={open}
-            onClose={handleClose}
+            open={Boolean(anchorEl)}
+            onClose={() => handleToggleMenu()}
             transformOrigin={{ horizontal: "right", vertical: "top" }}
             anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
             MenuListProps={{
               "aria-labelledby": "basic-button",
             }}
           >
-            <MenuItem onClick={handleClose} disableRipple>
+            <MenuItem onClick={() => handleToggleMenu()} disableRipple>
               <AccountBoxIcon />
               Account
             </MenuItem>
-            <MenuItem onClick={handleClose} disableRipple>
+            <MenuItem onClick={() => handleToggleMenu()} disableRipple>
               <SettingsIcon />
               Settings
             </MenuItem>
             <Divider sx={{ my: 0.5 }} />
-            <MenuItem onClick={handleClose} disableRipple>
+            <MenuItem onClick={() => handleToggleMenu()} disableRipple>
               <CorporateFareIcon />
               Organization
             </MenuItem>
             <MenuItem
               onClick={() => {
                 logout();
-                handleClose();
+                handleToggleMenu();
               }}
               disableRipple
             >

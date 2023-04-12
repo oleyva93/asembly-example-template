@@ -1,14 +1,13 @@
-import { httpClient } from "@/config/http-client";
+import { httpClient } from "@/config/http";
 import { SESSION_TYPES } from "@/constants";
 import axios from "axios";
 import { useMutation, useQuery } from "react-query";
 
 // fetchers
 
-const fetchLogin = async (credentials) =>
-  await axios.post("/api/auth/login", credentials);
+const fetchLogin = (credentials) => axios.post("/api/auth/login", credentials);
 
-const fetchProfile = async () =>
+const fetchProfile = () =>
   httpClient()
     .get("/users/me")
     .then((res) => res.data);
@@ -28,17 +27,16 @@ const useLogin = () => {
   );
 };
 
-const useLogout = (options) => {
-  return useMutation([SESSION_TYPES.USER_LOGOUT], fetchLogout, {
+const useLogout = (options) =>
+  useMutation([SESSION_TYPES.USER_LOGOUT], fetchLogout, {
     ...options,
     onSettled: () => {
       window.localStorage.removeItem("accessToken");
     },
   });
+
+const useSession = () => {
+  return useQuery([SESSION_TYPES.USER_GET_ME], () => fetchProfile());
 };
 
-const useSession = (options) => {
-  return useQuery([SESSION_TYPES.USER_GET_ME], fetchProfile, options);
-};
-
-export { useLogin, useLogout, useSession, fetchProfile };
+export { useLogin, useLogout, useSession };

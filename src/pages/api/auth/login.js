@@ -10,11 +10,11 @@ export default async function loginHandler(req, res) {
     );
 
     const serialized = serialize("accessToken", response?.data?.access_token, {
-      httpOnly: true,
       secure: process.env.NODE_ENV === "production",
       sameSite: false,
       maxAge: 1000 * 60 * 60 * 24 * 30,
       path: "/",
+      expires: new Date(Date.now() + 1000 * 60 * 10),
     });
 
     res.setHeader("Set-Cookie", serialized);

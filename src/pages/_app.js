@@ -4,18 +4,14 @@ import { ReactQueryDevtools } from "react-query/devtools";
 import CoreProvider from "@/components/theme";
 import "semantic-ui-css/semantic.min.css";
 import "../styles/globals.css";
+import ReactQueryProvider from "@/components/providers/react-query-provider";
 
 export default function MyApp({ Component, pageProps }) {
-  const [queryClient] = React.useState(() => new QueryClient());
-
   const getLayout = Component.getLayout || ((page) => page);
 
   return (
-    <QueryClientProvider client={queryClient}>
-      <Hydrate state={pageProps.dehydratedState}>
-        <CoreProvider>{getLayout(<Component {...pageProps} />)}</CoreProvider>
-      </Hydrate>
-      <ReactQueryDevtools />
-    </QueryClientProvider>
+    <ReactQueryProvider dehydratedState={pageProps?.dehydratedState}>
+      <CoreProvider>{getLayout(<Component {...pageProps} />)}</CoreProvider>
+    </ReactQueryProvider>
   );
 }
