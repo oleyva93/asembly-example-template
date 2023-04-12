@@ -9,7 +9,9 @@ const fetchLogin = async (credentials) =>
   await axios.post("/api/auth/login", credentials);
 
 const fetchProfile = async () =>
-  httpClient.get("/users/me").then((res) => res.data);
+  httpClient()
+    .get("/users/me")
+    .then((res) => res.data);
 
 const fetchLogout = async () => axios.get("/api/auth/logout");
 
