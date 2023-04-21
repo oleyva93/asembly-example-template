@@ -2,7 +2,7 @@ import { ThemeProvider } from "next-themes";
 import { memo } from "react";
 import Provider from "./provider";
 
-const CoreProvider = ({ children }) => {
+const CoreThemeProvider = ({ children }) => {
   return (
     <ThemeProvider attribute="class" defaultTheme="light">
       <Provider>{children}</Provider>
@@ -10,4 +10,4 @@ const CoreProvider = ({ children }) => {
   );
 };
 
-export default memo(CoreProvider);
+export default memo(CoreThemeProvider);

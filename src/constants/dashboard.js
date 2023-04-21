@@ -1,0 +1,9 @@
+export const DASHBOARD_RELEASES = "DASHBOARD_RELEASES";
+export const DASHBOARD_KEY_SETTINGS = "DASHBOARD_KEY_SETTINGS";
+export const DASHBOARD_INVENTORY = "DASHBOARD_INVENTORY";
+
+export const SETTINGS_KEYS = {
+  LIVE_MODE: "live-mode",
+  FLASHING: "flashing",
+  STRESS_TEST: "stress-test",
+};

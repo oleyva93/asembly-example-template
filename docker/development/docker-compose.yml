@@ -1,10 +1,10 @@
 version: '3'
 
 services:
-  with-docker-multi-env-development:
+  assembly-frontend-dev:
     build:
       context: ../../
       dockerfile: docker/development/Dockerfile
-    image: with-docker-multi-env-development
+    image: assembly-frontend-dev
     ports:
       - '3001:3000'

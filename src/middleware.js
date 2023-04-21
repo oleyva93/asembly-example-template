@@ -1,19 +1,13 @@
 import { NextResponse } from "next/server";
-import jwt_decode from "jwt-decode";
+import { isJwtExpired } from "./helpers/string";
 
-const ACCESS_TOKEN_PARAM = "accessToken";
-const LOGIN_PATH = "/login";
+const ACCESS_TOKEN_PARAM = "access_token";
+const LOGIN_PATH = "/site/login";
 
 export async function middleware(request) {
   const jwt = request.cookies.get(ACCESS_TOKEN_PARAM);
 
-  if (jwt) {
-    const decoded = jwt_decode(jwt.value);
-    const currentTime = Date.now() / 1000;
-    if (decoded.exp < currentTime) {
-      return NextResponse.redirect(new URL(LOGIN_PATH, request.url));
-    }
-  } else {
+  if (!jwt || isJwtExpired(jwt.value)) {
     return NextResponse.redirect(new URL(LOGIN_PATH, request.url));
   }
 
@@ -21,5 +15,5 @@ export async function middleware(request) {
 }
 
 export const config = {
-  matcher: ["/", "/dashboard", "/log", "/admin", "/static-log"],
+  matcher: ["/dashboard", "/logs", "/admin", "/static-logs"],
 };

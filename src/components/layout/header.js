@@ -12,6 +12,7 @@ import { useQueryClient } from "react-query";
 import { useLogout, useSession } from "../../hooks/useSession";
 import StyledMenu from "../common/styled-menu";
 import useEvent from "@/hooks/useEvent";
+import { useAppCtx } from "@/providers/app-provider";
 
 export default function HeaderPage({ onCollapse }) {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -19,7 +20,7 @@ export default function HeaderPage({ onCollapse }) {
   const router = useRouter();
   const qC = useQueryClient();
 
-  const { data: profile } = useSession();
+  const [user] = useAppCtx((store) => store?.user);
 
   const { mutateAsync: logout } = useLogout({
     onSuccess: () => {
@@ -34,7 +35,7 @@ export default function HeaderPage({ onCollapse }) {
 
   return (
     <nav
-      className="flex-no-wrap px-6 min-h-[55px] max-h-[55px] relative flex w-full items-center justify-between border-b border-slate-300 dark-gbl-border bg-gray-100 dark:bg-zinc-800 py-2 shadow-md shadow-black/5 dark:shadow-black/10 lg:flex-wrap lg:justify-start"
+      className="flex-no-wrap fixed z-[1000] px-6 min-h-[55px] max-h-[55px] flex w-full items-center justify-between border-b border-slate-300 dark-gbl-border bg-gray-100 dark:bg-zinc-800 py-2 lg:flex-wrap lg:justify-start"
       data-te-navbar-ref
     >
       <Grid
@@ -49,18 +50,14 @@ export default function HeaderPage({ onCollapse }) {
           </IconButton>
         </Grid>
         <Grid item xs={6} display="flex" justifyContent="flex-end">
-          <Tooltip title={profile?.email} placement="left">
+          <Tooltip title={user?.email} placement="left">
             <IconButton
               onClick={handleToggleMenu}
               size="small"
               sx={{ ml: 2 }}
               aria-haspopup="true"
             >
-              <Tooltip title={profile?.user?.email} placement="left">
-                <Avatar sx={{ width: 32, height: 32 }}>
-                  {profile?.user?.email?.[0]}
-                </Avatar>
-              </Tooltip>
+              <Avatar sx={{ width: 32, height: 32 }}>{user?.email?.[0]}</Avatar>
             </IconButton>
           </Tooltip>
           <StyledMenu
@@ -74,19 +71,6 @@ export default function HeaderPage({ onCollapse }) {
               "aria-labelledby": "basic-button",
             }}
           >
-            <MenuItem onClick={() => handleToggleMenu()} disableRipple>
-              <AccountBoxIcon />
-              Account
-            </MenuItem>
-            <MenuItem onClick={() => handleToggleMenu()} disableRipple>
-              <SettingsIcon />
-              Settings
-            </MenuItem>
-            <Divider sx={{ my: 0.5 }} />
-            <MenuItem onClick={() => handleToggleMenu()} disableRipple>
-              <CorporateFareIcon />
-              Organization
-            </MenuItem>
             <MenuItem
               onClick={() => {
                 logout();

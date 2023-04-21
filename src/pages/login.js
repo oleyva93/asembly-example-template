@@ -1,6 +1,8 @@
+import { isJwtExpired } from "@/helpers/string";
 import { useLogin } from "@/hooks/useSession";
 import LoadingButton from "@mui/lab/LoadingButton";
 import { Checkbox, TextField } from "@mui/material";
+import Head from "next/head";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { Controller, useForm } from "react-hook-form";
@@ -26,15 +28,25 @@ function Login() {
       await loginPost(data);
       router.push("/");
     } catch (error) {
-      setError("email", {
-        type: "custom",
-        message: error?.response?.data?.error,
-      });
+      if (typeof error?.response?.data?.error === "string") {
+        setError("email", {
+          type: "custom",
+          message: error?.response?.data?.error,
+        });
+      } else {
+        setError("email", {
+          type: "custom",
+          message: "Something went wrong",
+        });
+      }
     }
   };
 
   return (
     <div className="bg-[#1c4b59] dark:bg-zinc-700 h-screen w-screen">
+      <Head>
+        <title>Fusus Assembly</title>
+      </Head>
       <div className="flex flex-col items-center flex-1 h-full justify-center px-4 sm:px-0">
         <div
           className="flex rounded-lg shadow-lg w-full sm:w-3/4 lg:w-1/2 bg-white sm:mx-0"
@@ -113,9 +125,10 @@ function Login() {
           </div>
           <div className="hidden md:grid items-center justify-around border-l md:w-1/2 rounded-r-lg bg-cover bg-center">
             <Image
-              src="/FususLogo_Vertical_Primary.png"
+              src="/site/fusus-main-logo.png"
               width={220}
               height={220}
+              alt="Fusus Logo"
             />
           </div>
         </div>
@@ -125,7 +138,8 @@ function Login() {
 }
 
 export async function getServerSideProps({ req }) {
-  if (req.cookies.accessToken) {
+  const jwt = req.cookies.access_token;
+  if (jwt && !isJwtExpired(jwt)) {
     return {
       redirect: {
         destination: "/dashboard",
